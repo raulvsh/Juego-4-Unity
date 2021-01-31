@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 	private Rigidbody playerRb;
 	private GameObject focalPoint;
-	public float speed;
+	public float speed = 5;
 	public bool hasPowerup;
 	private float powerupStrenth = 15.0f;
 	public GameObject powerupIndicator;
@@ -38,7 +38,14 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionEnter(Collision collision)
+    IEnumerator PowerupCountdownRoutine()
+    {
+        yield return new WaitForSeconds(7);
+        hasPowerup = false;
+        powerupIndicator.gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.CompareTag("Enemy") && hasPowerup)
 		{
@@ -50,10 +57,5 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	IEnumerator PowerupCountdownRoutine()
-	{
-		yield return new WaitForSeconds(7);
-		hasPowerup = false;
-		powerupIndicator.gameObject.SetActive(false);
-	}
+
 }
