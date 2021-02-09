@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class EnemyX : MonoBehaviour
 {
-    public float speed;
+    public float speed = 100;
     private Rigidbody enemyRb;
     private GameObject playerGoal;
+    private GameObject enemyGoal;
+
 
     // Start is called before the first frame update
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
+        playerGoal = GameObject.Find("Player Goal");
     }
 
     // Update is called once per frame
