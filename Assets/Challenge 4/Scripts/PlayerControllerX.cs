@@ -8,6 +8,7 @@ public class PlayerControllerX : MonoBehaviour
     private float speed = 500;
     private GameObject focalPoint;
     private float velocidadTurbo = 10.0f;
+    public ParticleSystem turboParticle;
 
     public bool hasPowerup;
     public GameObject powerupIndicator;
@@ -26,14 +27,19 @@ public class PlayerControllerX : MonoBehaviour
     {
         // Add force to player in direction of the focal point (and camera)
         float verticalInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * verticalInput * speed * Time.deltaTime); 
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        playerRb.AddForce(focalPoint.transform.forward * verticalInput * speed * Time.deltaTime);
+        playerRb.AddForce(focalPoint.transform.right * horizontalInput * speed * Time.deltaTime);
 
         // Set powerup indicator position to beneath player
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.6f, 0);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            playerRb.AddForce(focalPoint.transform.forward * velocidadTurbo, ForceMode.Impulse);
+            playerRb.AddForce(focalPoint.transform.forward * verticalInput * velocidadTurbo, ForceMode.Impulse);
+            //turboParticle.transform.position = transform.position;
+            turboParticle.Play();
         }
 
     }

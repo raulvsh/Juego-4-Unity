@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class EnemyX : MonoBehaviour
 {
-    public float speed = 100;
+    public float speed;
     private Rigidbody enemyRb;
     private GameObject playerGoal;
     private GameObject enemyGoal;
+    private SpawnManagerX scriptSpawnManagerX;
 
 
     // Start is called before the first frame update
@@ -15,6 +16,8 @@ public class EnemyX : MonoBehaviour
     {
         enemyRb = GetComponent<Rigidbody>();
         playerGoal = GameObject.Find("Player Goal");
+        scriptSpawnManagerX = GameObject.Find("Spawn Manager").GetComponent<SpawnManagerX>();
+        speed = scriptSpawnManagerX.enemySpeed;
     }
 
     // Update is called once per frame
